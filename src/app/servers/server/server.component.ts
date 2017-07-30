@@ -38,8 +38,19 @@ export class ServerComponent implements OnInit {
 
 
   onEdit(){
-    // All we need to do is append the edit to the current path
-    this.router.navigate([`edit`], { relativeTo: this.route });
+    // // All we need to do is append the edit to the current path
+    this.router
+      .navigate(['edit'],
+        {
+          // My solution
+          // queryParams: {allowEdit: this.allowEdit ? '1' : '0'},
+
+          // Class solution, preserve the already present query paramenters
+          queryParamsHandling: 'preserve',
+          // If desired I can also add a fragment #value
+          fragment: 'loading',
+          relativeTo: this.route
+      });
 
     // My first try with works as well
     // this.router.navigate([`/servers/${this.server.id}/edit`]);
