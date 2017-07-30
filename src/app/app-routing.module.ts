@@ -10,6 +10,8 @@ import { EditServerComponent } from './servers/edit-server/edit-server.component
 import { ServerComponent } from './servers/server/server.component';
 import { ServersService } from './servers/servers.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthGuard } from './auth-guard.service';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
 
 // In our example, we didn't encounter any issues when we tried to redirect the user.
 // But that's not always the case when adding redirections.
@@ -34,13 +36,20 @@ const appRoutes: Routes = [
   ] },
   // Declare server path and it's child paths
   // Router outlet declare in servers.component.html
-  { path: 'servers', component: ServersComponent, children: [
-    { path: ':id', component: ServerComponent },
-    { path: ':id/edit', component: EditServerComponent }
-  ] },
-  // { path: 'not-found', component: PageNotFoundComponent },
-  // { path: 'something', redirectTo: 'not-found' },
 
+  // canActivate uses code in the auth-guard-servce, if guards the routes
+  // Also can user canActivateChild which protects the children paths
+  { path: 'servers',
+    // canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: ServersComponent,
+      children: [
+        { path: ':id', component: ServerComponent },
+        { path: ':id/edit', component: EditServerComponent }
+      ] },
+  { path: 'not-found', component: PageNotFoundComponent },
+  // { path: 'something', redirectTo: 'not-found' },
+  { path: 'AccessDenied', component: AccessDeniedComponent},
   // Catch every path you don't now and redirect to not found
   // This path should always be the last, paths are processed from top down
   { path: '**', redirectTo: 'not-found' }

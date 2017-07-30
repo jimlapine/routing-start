@@ -12,6 +12,6 @@
   </strong>
 </p>
 <button
-  ng-disabled="{!allowEdit}"
+  [disabled]="!allowEdit"
   class="btn btn-primary"
   (click)="onEdit()">Edit</button>
