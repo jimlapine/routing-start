@@ -10,9 +10,13 @@
         *ngFor="let server of servers">
         {{ server.name }}
       </a>       -->
+
+      <!-- Only allow editting is server id === 3 -->
       <a
         href="#"
         [routerLink]="['/servers', server.id]"
+        [queryParams]="{allowEdit: server.id === 3 ? '1': '0'}"
+        fragment="loading"
         class="list-group-item"
         *ngFor="let server of servers">
         {{ server.name }}
@@ -20,14 +24,17 @@
     </div>
   </div>
   <div class="col-xs-12 col-sm-4">
-    <!-- <a routerLink="/servers">Reload Page</a> -->
-    <button class="btn btn-warning"
+    <!-- gives an outlet for our child routes -->
+    <router-outlet></router-outlet>
+      <!-- <a routerLink="/servers">Reload Page</a>
+     <button class="btn btn-warning"
       (click)="reloadPage()">
       Reload Page
     </button>
     <app-edit-server></app-edit-server>
     <hr>
-    <!-- <app-server></app-server> -->
+
+     <app-server></app-server>   -->
   </div>
 </div>
 

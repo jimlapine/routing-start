@@ -11,10 +11,10 @@ export class EditServerComponent implements OnInit {
   server: {id: number, name: string, status: string};
   serverName = '';
   serverStatus = '';
+  allowEdit = false;
 
   constructor(private serversService: ServersService, private route: ActivatedRoute) {
-
-   }
+  }
 
   ngOnInit() {
     // Loading params from snapshot
@@ -38,6 +38,13 @@ export class EditServerComponent implements OnInit {
           }
         }
       );
+
+    this.route.queryParams.subscribe(
+      (params) => {
+        // console.log(`queryParams updated: ${params['allowEdit']}`);
+        this.allowEdit = params['allowEdit'] === '1' ? true : false;
+      }
+    );
     // We can subscribe to both the query parameter changes
     // this.route.queryParams.subscribe(
     //   (params) => {

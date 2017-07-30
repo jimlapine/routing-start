@@ -22,7 +22,7 @@ export class ServersService {
   }
 
   getServer(id: number) {
-    console.log(typeof(id));
+    // console.log(typeof(id));
     const server = this.servers.find(
       (s) => {
         return s.id === id;

@@ -1,3 +1,4 @@
+
 <h3>{{ server.name }}</h3>
 <p>Server status is
   <strong>
@@ -10,3 +11,7 @@
     </ng-template>
   </strong>
 </p>
+<button
+  ng-disabled="{!allowEdit}"
+  class="btn btn-primary"
+  (click)="onEdit()">Edit</button>

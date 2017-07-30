@@ -16,12 +16,18 @@ import { ServersService } from './servers/servers.service';
 // Routes constant
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'users', component: UsersComponent },
-  // : tells angular this is the dynamic part of the part
-  { path: 'users/:id/:name', component: UserComponent },
-  { path: 'servers', component: ServersComponent },
-  { path: 'servers/:id', component: ServerComponent },
-  { path: 'servers/:id/edit', component: EditServerComponent }
+  // Declare users and child paths
+  // Router outlet is declared in users.component.html
+  { path: 'users', component: UsersComponent, children: [
+    // : tells angular this is the dynamic part of the path
+    { path: ':id/:name', component: UserComponent }
+  ] },
+  // Declare server path and it's child paths
+  // Router outlet declare in servers.component.html
+  { path: 'servers', component: ServersComponent, children: [
+    { path: ':id', component: ServerComponent },
+    { path: ':id/edit', component: EditServerComponent }
+  ] }
 ];
 
 @NgModule({
