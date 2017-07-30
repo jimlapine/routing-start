@@ -35,8 +35,6 @@ export class ServerComponent implements OnInit {
     );
   }
 
-
-
   onEdit(){
     // // All we need to do is append the edit to the current path
     this.router
