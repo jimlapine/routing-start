@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ActivatedRoute } from '@angular/router';
 import { ServersService } from '../servers.service';
 
 @Component({
@@ -12,12 +12,45 @@ export class EditServerComponent implements OnInit {
   serverName = '';
   serverStatus = '';
 
-  constructor(private serversService: ServersService) { }
+  constructor(private serversService: ServersService, private route: ActivatedRoute) {
+
+   }
 
   ngOnInit() {
+    // Loading params from snapshot
+    // console.log(`queryParams: ${this.route.snapshot.queryParams}`);
+    // Loading fragment from snapshot
+    // console.log(`fragment: ${this.route.snapshot.fragment}`);
+
     this.server = this.serversService.getServer(1);
     this.serverName = this.server.name;
     this.serverStatus = this.server.status;
+
+    this.route.params
+      .subscribe(
+        (params) => {
+          console.log('id ', params['id']);
+          if (params['id'] !== undefined) {
+            this.server = this.serversService.getServer(parseInt(params['id']));
+            this.serverName = this.server.name;
+            this.serverStatus = this.server.status;
+            console.log('serverName ', this.serverName);
+          }
+        }
+      );
+    // We can subscribe to both the query parameter changes
+    // this.route.queryParams.subscribe(
+    //   (params) => {
+    //     console.log(`queryParams updated: ${params}`);
+    //   }
+    // );
+
+    // And we can subscribe to fragment changes
+    // this.route.fragment.subscribe(
+    //   (fragment) => {
+    //     console.log(`fragment updated: ${fragment}`);
+    //   }
+    // );
   }
 
   onUpdateServer() {

@@ -1,8 +1,18 @@
 <div class="row">
   <div class="col-xs-12 col-sm-4">
     <div class="list-group">
+      <!-- <a
+        href="#"
+        [routerLink]="['/servers',5,'edit']"
+        [queryParams]="{alllowEdit: '1'}"
+        fragment="loading"
+        class="list-group-item"
+        *ngFor="let server of servers">
+        {{ server.name }}
+      </a>       -->
       <a
         href="#"
+        [routerLink]="['/servers', server.id]"
         class="list-group-item"
         *ngFor="let server of servers">
         {{ server.name }}
@@ -10,9 +20,14 @@
     </div>
   </div>
   <div class="col-xs-12 col-sm-4">
+    <!-- <a routerLink="/servers">Reload Page</a> -->
+    <button class="btn btn-warning"
+      (click)="reloadPage()">
+      Reload Page
+    </button>
     <app-edit-server></app-edit-server>
     <hr>
-    <app-server></app-server>
+    <!-- <app-server></app-server> -->
   </div>
 </div>
 

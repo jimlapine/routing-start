@@ -1,2 +1,12 @@
-<h5>{{ server.name }}</h5>
-<p>Server status is {{ server.status }}</p>
+<h3>{{ server.name }}</h3>
+<p>Server status is
+  <strong>
+    <span
+      *ngIf="server.status === 'offline' else online">
+      <span class='text-danger'>{{ server.status }}</span>
+    </span>
+    <ng-template #online>
+      <span class='text-success'>{{ server.status }}</span>
+    </ng-template>
+  </strong>
+</p>

@@ -2,12 +2,37 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="#">Home</a></li>
-        <li role="presentation"><a href="#">Servers</a></li>
-        <li role="presentation"><a href="#">Users</a></li>
+        <!--
+            routerLinkActive will apply stlye when route is active
+            this is mark as active any link which contains part of path loaded
+            So home will be active all the time!
+            Unless we specify
+            [routerLinkActiveOptions]='{ exact: true } '
+        -->
+        <li role="presentation"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]='{exact: true}'>
+          <a routerLink="/">Home</a>
+        </li>
+        <li role="presentation"
+          routerLinkActive="active">
+          <a routerLink="/servers">Servers</a>
+        </li>
+        <!-- This shows routerLink Useing property binding -->
+        <li role="presentation"
+          routerLinkActive="active">
+          <a [routerLink]="['/users']">Users</a>
+        </li>
       </ul>
     </div>
   </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!-- Provides an outlet for the route to render components registered in routing -->
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <!--
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <app-home></app-home>
@@ -23,4 +48,5 @@
       <app-servers></app-servers>
     </div>
   </div>
+  -->
 </div>
