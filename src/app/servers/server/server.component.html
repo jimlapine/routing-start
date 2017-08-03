@@ -1,14 +1,9 @@
-
 <h3>{{ server.name }}</h3>
 <p>Server status is
   <strong>
     <span
-      *ngIf="server.status === 'offline' else online">
-      <span class='text-danger'>{{ server.status }}</span>
-    </span>
-    <ng-template #online>
-      <span class='text-success'>{{ server.status }}</span>
-    </ng-template>
+      [ngClass]="{'text-danger': server.status === 'offline',
+        'text-success': server.status !== 'offline'}">{{ server.status }}</span>
   </strong>
 </p>
 <button

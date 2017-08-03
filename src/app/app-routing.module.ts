@@ -12,6 +12,7 @@ import { ServersService } from './servers/servers.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './auth-guard.service';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
+import { CanDeactivateGuard } from './servers/edit-server/can-deactivate-guard.service';
 
 // In our example, we didn't encounter any issues when we tried to redirect the user.
 // But that's not always the case when adding redirections.
@@ -45,7 +46,7 @@ const appRoutes: Routes = [
     component: ServersComponent,
       children: [
         { path: ':id', component: ServerComponent },
-        { path: ':id/edit', component: EditServerComponent }
+        { path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGuard] }
       ] },
   { path: 'not-found', component: PageNotFoundComponent },
   // { path: 'something', redirectTo: 'not-found' },

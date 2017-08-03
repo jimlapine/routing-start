@@ -16,6 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from './auth-guard.service';
 import { AuthService } from './auth-service';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
+import { CanDeactivateGuard } from './servers/edit-server/can-deactivate-guard.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { AccessDeniedComponent } from './access-denied/access-denied.component';
     // Include our app routing module
     AppRoutingModule
   ],
-  providers: [ServersService, AuthGuard, AuthService],
+  providers: [ServersService, AuthGuard, AuthService, CanDeactivateGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
