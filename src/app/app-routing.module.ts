@@ -13,6 +13,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AuthGuard } from './auth-guard.service';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { CanDeactivateGuard } from './servers/edit-server/can-deactivate-guard.service';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { ServerResolver } from './servers/server/server-resolver.service';
 
 // In our example, we didn't encounter any issues when we tried to redirect the user.
 // But that's not always the case when adding redirections.
@@ -45,10 +47,13 @@ const appRoutes: Routes = [
     canActivateChild: [AuthGuard],
     component: ServersComponent,
       children: [
-        { path: ':id', component: ServerComponent },
+        // The resolver will be called and data retieved before routed to route
+        { path: ':id', component: ServerComponent, resolve: {server: ServerResolver} },
         { path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGuard] }
       ] },
-  { path: 'not-found', component: PageNotFoundComponent },
+  // { path: 'not-found', component: PageNotFoundComponent },
+  // This allow us to pass data a long with routing, it will be used by our ErrorComponent
+  { path: 'not-found', component: ErrorPageComponent, data: {message: 'Page Not Found.'} },
   // { path: 'something', redirectTo: 'not-found' },
   { path: 'AccessDenied', component: AccessDeniedComponent},
   // Catch every path you don't now and redirect to not found
@@ -60,6 +65,8 @@ const appRoutes: Routes = [
   // Imports the router module and adds our route
   imports: [
     // Register defined routes with Angular
+    // Use hash option for older set ups, or where you can not configure 404 to point to your index.html
+    // RouterModule.forRoot(appRoutes, {useHash: true})
     RouterModule.forRoot(appRoutes)
   ],
   // Make the route module available to other components that include this module

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Data } from '@angular/router';
 import { ServersService } from '../servers.service';
 
 @Component({
@@ -15,17 +15,27 @@ export class ServerComponent implements OnInit {
     private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    // + converts the params from a string to a number
-    const id = +this.route.snapshot.params['id'];
-    this.server = this.serversService.getServer(id);
-    this.route.params
+
+    // We can subscribe to route data changes since it's an observable
+    this.route.data
       .subscribe(
-        (params) => {
-          if (params['id'] !== undefined) {
-            this.server = this.serversService.getServer(+params['id']);
-          }
+        (data: Data) => {
+          // This name must match the name we gave this data property in app routing module
+          this.server = data['server'];
         }
       );
+
+    // + converts the params from a string to a number
+    // const id = +this.route.snapshot.params['id'];
+    // this.server = this.serversService.getServer(id);
+    // this.route.params
+    //   .subscribe(
+    //     (params) => {
+    //       if (params['id'] !== undefined) {
+    //         this.server = this.serversService.getServer(+params['id']);
+    //       }
+    //     }
+    //   );
 
     this.route.queryParams.subscribe(
       (params) => {

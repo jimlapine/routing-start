@@ -1,6 +1,6 @@
 <h3
   *ngIf="!allowEdit">
-  You're not allowed to edit!</h3>
+  You're not allowed to edit {{ server.name }}</h3>
 <div
   *ngIf="allowEdit">
   <div class="form-group">
@@ -9,14 +9,14 @@
       type="text"
       id="name"
       class="form-control"
-      [(ngModel)]="serverName">
+      [(ngModel)]="server.name">
   </div>
   <div class="form-group">
     <label for="status">Server Status</label>
     <select
       id="status"
       class="form-control"
-      [(ngModel)]="serverStatus">
+      [(ngModel)]="server.status">
       <option value="online">Online</option>
       <option value="offline">Offline</option>
     </select>
